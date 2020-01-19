@@ -1,0 +1,301 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % Lines starting with % are comments, which are ignored.
+% % This is a handy way of indicating the date and version of
+% % your document, to wit:
+% %
+% % LaTeX sample file
+% % Modified March, 2002
+% %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % Title and author(s)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Fundamental solutions for evolution problems on the torus $\mathbb{T}^n$}
+\author{autor\thanks{
+		University of Concepcion}
+	\and
+	autor 2\thanks{
+		institucion
+	}\thanks{This work was
+		supported by NSB grant number G983578765401.}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{lipsum}
+\usepackage{enumitem} %para cambiar numeracion de listas
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+% % The next command allows your in import encapsulated
+% % postscript files, .epsf or .eps files, which
+% % contain vector graphic image data.
+% %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\allowdisplaybreaks %para cortar las ecuaciones en el entorne align
+\usepackage{empheq} %paquete para hacer corchete en varias ecuaciones
+\usepackage{mathtools}%paquete necesario para definier \abs y \norm
+\usepackage{physics}%solo para usar funciones parte real e imaginaria
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% definicion valor absoluto %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+%\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+\DeclarePairedDelimiter{\vabs}{\lvert}{\rvert}
+
+% Swap the definition of \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the
+% starred version does not.
+%\makeatletter
+%\let\oldabs\abs
+%\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+
+%\let\oldnorm\norm
+%\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+%\makeatother
+
+\newcommand*{\Value}{\frac{1}{2}x^2}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % We use newtheorem to define theorem-like structures
+% %
+% % Here are some common ones. . .
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{scolium}{Scolium}   %% And a not so common one.
+\newtheorem{definition}{Definition}
+\newenvironment{proof}{{\sc Proof:}}{~\hfill QED}
+\newenvironment{AMS}{}{}
+\newenvironment{keywords}{}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%Comandos para simbolos espacios%%%%%%%%%%%
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\newcommand{\LT}[1]{L^{#1}(\mathbb{T}^n)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %   The first thanks indicates your affiliation
+% %
+% %  Just the name here.
+% %
+% % Your mailing address goes at the end.
+% %
+% % \thanks is also how you indicate grant support
+% %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%comandos para que no se rompan las ecuaciones en latex
+\relpenalty=9999
+\binoppenalty=9999
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	\newpage
+	\maketitle
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% abstract, keywords and Subject classification are optional.
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\begin{abstract}
+		\lipsum[1-1]
+	\end{abstract}
+
+	% Most people don't use these, so they are "commented out"
+	% by starting the lines with a "%"
+	%\begin{keywords}
+	%   \LaTeX, typesetting
+	%\end{keywords}
+
+	%\begin{AMS}
+	%   50C60, 18C25
+	%\end{AMS}
+
+	%%%%%%%%%%%%%%%%%%%%%%
+	% % Here is the start of the Text
+	%%%%%%%%%%%%%%%%%%%%%%
+	\section{Introduction}
+	The main objetive of this paper is to study the solutions of evolutions problems on the torus $\mathbb{T}^n$. In particular, we will focus on the following equations
+	\begin{empheq}[left = \empheqlbrace]{align}\label{eq1}
+		u_t (t,x) + \mathcal{N}(u(t,x)) + Au(t,x)=0&, \hspace{11pt}t>0, \hspace{5pt}x \in \mathbb{T}^n;\\
+		u(0,x)=u_0(x)&, \hspace{10pt}x\in \mathbb{T}^n.\notag
+	\end{empheq}
+	%\begin{equation}\label{eq2}
+	%	\partial_t(u(t,x)-u_0(x))+Au(t,x)=0, \hspace{5pt}t>0, \hspace{5pt}x \in \mathbb{T}^n,
+	%\end{equation}
+where $A$ is a pseudo-differential operator. In our case, the main tool for the study of the equation (\ref{eq1}) will be the Fourier Transform,
+\begin{align*}
+	\mathcal{F}_{\mathbb{T}^n}:C(\mathbb{T}^n) \rightarrow \mathcal{S}(\mathbb{Z}^n),
+\end{align*}
+wich in our case is defined by
+\begin{equation*}
+	\left(\mathcal{F}_{\mathbb{T}^n} f\right)(\xi) := \int_{\mathbb{T}^n} e^{-i2\pi x\cdot\xi}f(x) dx =:\hat{f}(\xi),
+\end{equation*}
+and its inverse is given by
+\begin{equation*}
+	\left(\mathcal{F}_{\mathbb{T}^n}^{-1}h\right)(x) := \sum_{\xi \in \mathbb{Z}^n}e^{i2\pi x\cdot\xi}h(\xi),
+\end{equation*}
+where $\xi=(\xi_1,\dots,\xi_n)$. Using the Fourier Transform, we have the pseudo-differential operator $A$ defined by
+\begin{equation*}
+	Af(x) := \sum_{\xi \in \mathbb{Z}^n} e^{i2\pi x\cdot \xi} a(\xi)\hat{f}(\xi).
+\end{equation*}
+We would like to point out that in \cite{ruzhansky}, M. Ruzhansky and V. Turunen, perform a detailed study on Fourier periodic analysis.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%Fundamentos Solución%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Preliminaries}
+Before we start studying the solution of the equation (\ref{eq1}) and (\ref{eq2}), we need to introduce some results, by C. Berg \cite{Berg1976PotentialTO}, that will help us ensure the existence of solutions of the equations already mentioned.
+
+First we'll define convolution semigroups on $\mathbb{T}^n$, to subssequentely provide the necessary conditions, for example, to ensure the existence of fundamental solutions.
+
+Let $C(\mathbb{T}^n)$ be the set of continuos functions $f:\mathbb{T}^n \to \mathbb{R}$ and $C_c (\mathbb{T}^n)$ the set of continuos functions wich have compact support.
+
+\begin{definition}
+	A family $(\mu_t)_{t>0}$ of positive measures on $\mathbb{T}^n$ is called a convolution semigroup on $\mathbb{T}^n$ if
+	\begin{enumerate}[label=(\roman*)]
+		\item $\mu_t (\mathbb{T}^n)\le 1$ for $t>0$,
+		\item $\mu_t + \mu_s = \mu_{t+s}$ for $t,s>0$,
+		\item $\lim\limits_{t \to 0}\mu_t = \epsilon_0$ vaguely, i.e. $\lim\limits_{t \to 0} \left<\mu_t , f \right> = f(0)$ for all $f \in C_c (\mathbb{T}^n).$
+	\end{enumerate}
+\end{definition}
+
+Next we have the definition of negative definite functions, which we'll be associated to convolutions semigroups on $\mathbb{T}^n$.
+
+\begin{definition}
+	A continuous function $\psi : \mathbb{Z}^n \to \mathbb{C}$ is called negative definite if the following condition is satisfied. For every $m \in \mathbb{N}$ and for every $m$-tuple $(\xi_1, \dots,\xi_m)$ of elements from $\mathbb{Z}^n$ the $m \times m$ matrix $$ (\psi(\xi_i)+\overline{\psi(\xi_j)}-\psi(\xi_i - \xi_j))$$ is non-negative hermitian.
+\end{definition}
+
+\begin{proposition}
+	To every convolution semigroup $(\mu_t)_{t>0}$ on $\mathbb{T}^n$ is associated a continuous negative definite function $\psi : \mathbb{Z}^n \to \mathbb{C}$ such that
+	\begin{equation}\label{condicionsemigrupoasociado}
+		\hat{\mu}_t (\xi) = e^{-t\psi(\xi)} \hspace{5pt}\text{for}\hspace{5pt} \xi \in \mathbb{Z}^n\hspace{5pt}\text{and} \hspace{5pt}t>0.
+	\end{equation}
+ Conversely, if $\psi : \mathbb{Z}^n \to \mathbb{C}$ is a continuous negative definite function on $\mathbb{Z}^n$ there exists a uniquely determined convolution semigroup $(\mu_t)_{t>0}$ on $\mathbb{T}^n$ such that (\ref{condicionsemigrupoasociado}) holds.
+\end{proposition}
+
+Lastly, not every convolution semigroup work, we need them to be symmetric in order to guarantee the existence of solutions.
+
+\begin{definition}
+	A convolution semigroup $(\mu_t)_{t>0}$ on $\mathbb{T}^n$ is called symmetric if all the measures $(\mu_t)_{t>0}$ are symmetric, i.e. if and only if the associated negative definite function $\psi$ si real-valued.
+\end{definition}
+
+\begin{theorem}\label{teoremaconvergenciasoluciones}
+	Let $(\mu_t)_{t>0}$ be a symmetric convolution semigroup on $\mathbb{T}^n$ with associated negative definite function $\psi$ on $\mathbb{Z}^n$. For each $t>0$ the following conditions are equivalent:
+	\begin{enumerate}[label=(\roman*)]
+		\item $\mu_t$ has a continuous density $E_t$ with respect to Haar measure on $\mathbb{T}^n$
+		\item $e^{-t\psi}\in L^1 (\mathbb{Z}^n)$.
+	\end{enumerate}
+	If (ii) holds for every $t>0$ then $E_t \in D_A$ and $$AE_t(x)=\frac{d}{dt}E_t (x) \hspace{5pt}\text{for}\hspace{5pt}t>0 \hspace{5pt}\text{and}\hspace{5pt}x\in \mathbb{T}^n.$$ Furthermore, the function $E:\hspace{5pt}]0, \infty[ \times \mathbb{T}^n \to \mathbb{R}$ defined by $E(t,x)=E_t (x)$ is continuous.
+\end{theorem}
+
+Now every time we have a definite negative function,  we're going to have a convolution semigroun on $\mathbb{T}^n$ associated with it. In our case, these functions will be the symbols of the pseudo-differential operators we will work with. That's why from now on, all the operator symbols that we will consider in this paper will be real-valued negative definite functions.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% Fundamentos Solución %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%NUEVA SECCION%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Linear Case}
+We will first study the linear equation
+\begin{empheq}[left = \empheqlbrace]{align}\label{eqlineal}
+	u_t (t,x) + Au(t,x)=0&, \hspace{11pt}t>0, \hspace{5pt}x \in \mathbb{T}^n;\\
+	u(0,x)=u_0(x)&, \hspace{10pt}x\in \mathbb{T}^n.\notag
+\end{empheq}
+(falta explicación y mostrar cual es la solución y escribir la condicion que le exigiremos al símbolo si es la que $a(\xi)\ge \abs{\xi}^\delta$ o la de los rusos. Las demostraciones estan hechas con la primera supocición)\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+-------------------------------------------------------------------
+
+We can now begin to study the regularity of the solution for the linear case, but first, we need a version of the Hardy-Littlewood-Sobolev inequality applicable to our case. Here we  use what is shown by H. Yazhou and Z. Meijun in \cite{hls}.
+Let $s\not= n$ be a positive parameter and let us introduce the following integral operator:
+\begin{equation*}
+	I_s f(x)=\int_{\mathbb{T}^n} \frac{f(y)}{\abs{x-y}^{n-s}} dy.
+\end{equation*}
+Then for $s<n$ we have the following result:
+\begin{proposition}[Hardy-Littlewood-Sobolev]\label{teoremahls}
+	Assume that $s \in (0,n)$, $1<p<\frac{n}{s}$ and $q$ is given by
+	\begin{equation*}
+		\frac{1}{q}=\frac{1}{p} - \frac{s}{n},
+	\end{equation*}
+	then there is an optimal positive constant $C(s,p,\mathbb{T}^n)$, such that
+	\begin{equation*}
+		\norm{I_s f}_{L^q (\mathbb{T}^n)} \le C(s,p,\mathbb{T}^n) \norm{f}_{L^p(\mathbb{T}^n)}
+	\end{equation*}
+	holds for all $f \in L^p(\mathbb{T}^n)$. Moreover, for $1 \le r < q$, the operator $$I_s :L^p(\mathbb{T}^n) \rightarrow L^r (\mathbb{T}^n)$$ is a compact embedding.
+\end{proposition}
+First we will like to study the necessary conditions to guarantee that our solution $u$ belong to a certain $L^p$ space.
+\begin{theorem}\label{thmint}
+	Let $1\le p,r \le \infty$, $s \in (0,n)$, $1<p_0<s$, such that $1/r +1=1/p+1/p_0 -s/n$ and suppose that $u_0 \in L^{p_0} (\mathbb{T}^n)$. Then $u\in L^r (\mathbb{T}^n)$ and
+	\begin{equation*}
+		\norm{u(t,\cdot)}_{\LT{r}} \le C t^{-1/p(\frac{n+sp+1}{\delta})} \norm{u_0}_{\LT{p_0}},
+	\end{equation*}
+	whith $C=C(n,p,s,\delta)$.
+\end{theorem}
+
+\begin{proof}
+	By Young's convolution inequality, with $1/r + 1 = 1/p + 1/q$ and $q$ chosen so that $1/q = 1/p_0-s/n$. Then we have,
+	\begin{align*}
+		\norm{u(t,\cdot)}_{\LT{r}} =& \norm{\mathcal{F}_{\xi \mapsto x}^{-1}(\hat{E}(t,\xi)\cdot\hat{u}_0 (\xi))}_{\LT{r}}\\
+		=&\norm{\mathcal{F}_{\xi \mapsto x}^{-1}(\left|\xi\right|^{s} \hat{E}(t,\xi)\cdot\left|\xi\right|^{-s}\hat{u}_0 (\xi))}_{\LT{r}}\\
+		\le&\underbrace{\norm{\mathcal{F}_{\xi \mapsto x}^{-1}(\left|\xi\right|^{s} \hat{E}(t,\xi))}_{\LT{p}}}_\text{$S_1$}  \underbrace{\norm{\mathcal{F}_{\xi \mapsto x}^{-1}(\left|\xi\right|^{-s}\hat{u}_0 (\xi))}_{\LT{q}}}_\text{$S_2$}
+	\end{align*}
+	We will first estimate $S_1$:
+	\begin{align*}
+		S_{1}^p &= \int_{\T^n}\vabs*{\sum_{\xi \in \Z^n} e^{i2\pi x \cdot \xi}\vabs*{\xi}^s e^{-ta(\xi)}}^p dx\\
+		&\le \int_{\T^n} \sum_{\xi \in \Z^n \setminus \{0\}} \vabs*{\xi}^{sp} e^{-tpa(\xi)} dx\\
+		&\le \sum_{\xi \in \Z^n \setminus \{0\}} \vabs*{\xi}^{sp} \left(\frac{n+sp+1}{\delta}\right)^{-\left(\frac{n+sp+1}{\delta}\right)}e^{-\left(\frac{n+sp+1}{\delta}\right)} (tpa(\xi))^{-\left(\frac{n+sp+1}{\delta}\right)}\\
+		&\le C_1 \hspace{1pt}t^{-\left(\frac{n+sp+1}{\delta}\right)}\sum_{\xi \in \Z^n \setminus \{0\}} \vabs*{\xi}^{sp-n-sp-1}\\
+		&\le C_1 \hspace{1pt}t^{-\left(\frac{n+sp+1}{\delta}\right)}. \numberthis \label{estimacionS1}
+	\end{align*}
+	Now for $S_2$, using the Hardy-Littlewood-Sobolev inequality we have by our hypothesis that exists a constant $C_2>0$ which depends on $s,p_0$ and $n$, such that
+	\begin{align}
+		S_2 = \norm{I_s u_0}_{\LT{q}} \le C_2 \norm{u_0}_{\LT{p_0}}. \numberthis \label{estimacionS2}
+	\end{align}
+	Hence, by estimations (\ref{estimacionS1}) and (\ref{estimacionS2}) we get that
+	\begin{align*}
+		\norm{u(t,\cdot)}_{\LT{r}} \le C t^{-\frac{1}{p}\left(\frac{n+sp+1}{\delta}\right)} \norm*{u_0}_{\LT{p_0}}.
+	\end{align*}
+\end{proof}
+
+\begin{theorem}
+(Corregir!!)	Let $1 \le p \le \infty$ and $s \in \mathbb{R}$. If $u_0 \in W^{s-\delta/p}_p (\mathbb{T}^n)$, then $u \in W^{s}_p (\mathbb{T}^n)$. Moreover, $$\abs{u(t,\cdot)}_{W^{s}_p (\mathbb{T}^n)} \le Ct^{-1/p}\abs{u_0(\cdot)}_{W^{s-\delta/p}_p (\mathbb{T}^n)} $$
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+\begin{theorem}\label{thmperfilasintoticolineal}
+	Let $1 \le p \le \infty$ and $\theta=\int_{\mathbb{T}^n}u_0(x)dx$. Then,
+	\begin{equation*}
+		\norm{u(t,\cdot)-\theta E(t,\cdot)}_{\LT{p}} \le C t^{-1/p\left(\frac{n+1}{\delta}\right)}\norm{u_0}_{\LT{p}}
+	\end{equation*}
+\end{theorem}
+\begin{proof}
+	We will start analyzing $\vabs*{E(t,x-y) - E(t,x)}^p$ using lemma (el del acotamiento de exp),
+	\begin{align*}
+		\abs{E(t,x-y)-E(t,x)}^p &= \vabs*{\sum_{\xi \in \mathbb{Z}^n} e^{i2\pi (x-y)\cdot \xi} e^{-ta(\xi)}-\sum_{\xi \in \mathbb{Z}^n} e^{i2\pi x\cdot \xi} e^{-ta(\xi)}}^p\\
+		&= \vabs*{\sum_{\xi \in \mathbb{Z}^n} (e^{-i2\pi y\cdot \xi} -1)e^{i2\pi x\cdot \xi} e^{-ta(\xi)}}^p\\
+		&= \vabs*{\sum_{\xi \in \mathbb{Z}^n \setminus \{0\}} (e^{-i2\pi y\cdot \xi} -1)e^{i2\pi x\cdot \xi} e^{-ta(\xi)}}^p\\
+		&\le \sum_{\xi \in \mathbb{Z}^n \setminus \{0\}} 2^pe^{-tpa(\xi)}\\
+		&\le \sum_{\xi \in \mathbb{Z}^n \setminus \{0\}} 2^p\left(\frac{n+1}{\delta}\right)^{\frac{n+1}{\delta}} e^{-\left(\frac{n+1}{\delta}\right)}(tpa(\xi))^{-\left(\frac{n+1}{\delta}\right)}\\
+		&\le C_{n,p, \delta}\hspace{2pt} t^{-\left(\frac{n+1}{\delta}\right)}\sum_{\xi \in \mathbb{Z}^n \setminus \{0\}} \left(\vabs*{\xi}^{\delta}\right)^{-\left(\frac{n+1}{\delta}\right)}\\
+		&=C_{n,p, \delta}\hspace{2pt} t^{-\left(\frac{n+1}{\delta}\right)}\sum_{\xi \in \mathbb{Z}^n \setminus \{0\}} \vabs*{\xi}^{-(n+1)},
+	\end{align*}
+	Now using the above estimate, we get that
+	\begin{align*}
+		\norm{u(t,\cdot)- \theta E(t,\cdot)}_{\LT{p}}^{p} &= \norm{\int_{\mathbb{T}^n} E(t,x-y)u_0 (y) dy - \int_{\mathbb{T}^n} E(t,x)u_0 (y)dy}_{\LT{p}}^{p}\\
+		&= \norm{\int_{\mathbb{T}^n}(E(t,x-y)-E(t,x))u_0 (y)dy}_{\LT{p}}^p\\
+		&= \int_{\mathbb{T}^n} \vabs*{\int_{\mathbb{T}^n}(E(t,x-y)-E(t,x))u_0 (y)dy}^p dx\\
+		&\le \int_{\mathbb{T}^n} \int_{\mathbb{T}^n} \vabs*{E(t,x-y) - E(t,x)}^p \vabs*{u_0 (y)}^p dydx\\
+		&\le \int_{\mathbb{T}^n} \int_{\mathbb{T}^n} C_{n,\delta}\hspace{2pt} t^{-\left(\frac{n+1}{\delta}\right)} \vabs*{u_0 (y)}^p dydx\\
+		&= \int_{\T^n} C_{n,\delta}\hspace{2pt} t^{-\left(\frac{n+1}{\delta}\right)} \vabs*{u_0 (y)}^p dy\\
+		&=C_{n,\delta}\hspace{2pt} t^{-\left(\frac{n+1}{\delta}\right)} \norm{u_0}_{\LT{p}}^p
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		\norm{u(t,\cdot)- \theta E(t,\cdot)}_{\LT{p}} &\le Ct^{-\left(\frac{n+1}{\delta}\right)} \norm{u_0}_{\LT{p}}.
+	\end{align*}
+\end{proof}
+%that's how, for example, in equation $(1)$ using the Fourier Transform, we obtain
+\bibliographystyle{plain}
+\bibliography{bibliografia}
+\end{document}
